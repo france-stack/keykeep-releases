@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<!-- 介绍页：仅含页面排版用的 HTML/CSS，不含任何产品业务逻辑、配置或凭据。
+     VERSION-MARKER: 更新版本时，全局替换字符串 0.1.0-test.6 与 v0.1.0-test.6。 -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="KeyKeep（钥守）— 私有化部署的企业 AI API 统一管理与分发软件。公司保管真实上游凭据，员工只拿可撤销、可限额、可审计的虚拟 Key。">
+<title>KeyKeep（钥守）· 企业 AI API 统一管理与分发</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --surface: #f7f8fa;
+    --card: #ffffff;
+    --border: #e2e6ec;
+    --text: #171c23;
+    --muted: #5b6673;
+    --accent: #96560f;
+    --accent-hover: #7d470c;
+    --on-accent: #ffffff;
+    --accent-soft: #fdf3e4;
+    --link: #1d4ed8;
+    --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 8px 24px rgba(16, 24, 40, .05);
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117;
+      --surface: #111820;
+      --card: #161b22;
+      --border: #2a323d;
+      --text: #e6edf3;
+      --muted: #98a5b3;
+      --accent: #f0b429;
+      --accent-hover: #ffc94d;
+      --on-accent: #12160c;
+      --accent-soft: #2a2113;
+      --link: #6cb6ff;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  .skip {
+    position: absolute; left: -9999px; top: 0; z-index: 100;
+    background: var(--accent); color: var(--on-accent); padding: 10px 16px; border-radius: 0 0 8px 0;
+  }
+  .skip:focus { left: 0; }
+  .wrap { width: min(1080px, 100% - 40px); margin-inline: auto; }
+  .site-header {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .site-header .wrap { display: flex; align-items: center; gap: 16px; min-height: 62px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: baseline; gap: 9px; font-weight: 700; font-size: 1.08rem; color: var(--text); }
+  .brand:hover { text-decoration: none; }
+  .brand .mark { color: var(--accent); font-size: 1.25rem; line-height: 1; }
+  .brand small { font-weight: 500; color: var(--muted); font-size: .82rem; }
+  .pill {
+    font-size: .78rem; font-weight: 600; letter-spacing: .02em;
+    color: var(--accent); background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+    padding: 3px 11px; border-radius: 999px; white-space: nowrap;
+  }
+  .header-links { margin-left: auto; display: flex; gap: 20px; font-size: .9rem; }
+  .header-links a { color: var(--muted); }
+  .header-links a:hover { color: var(--text); text-decoration: none; }
+
+  .hero {
+    position: relative; overflow: hidden;
+    padding: clamp(56px, 9vw, 104px) 0 clamp(48px, 7vw, 80px);
+    background:
+      radial-gradient(60% 70% at 82% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero h1 {
+    margin: 18px 0 20px;
+    font-size: clamp(2rem, 5.2vw, 3.35rem);
+    line-height: 1.22; letter-spacing: -.02em; font-weight: 800;
+    max-width: 18em;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .lede { font-size: clamp(1.02rem, 2vw, 1.2rem); color: var(--muted); max-width: 44em; margin: 0 0 12px; }
+  .hero-note { font-size: .88rem; color: var(--muted); margin: 0 0 30px; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 22px; border-radius: 10px; font-weight: 650; font-size: .98rem;
+    border: 1px solid transparent; transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: var(--on-accent); }
+  .btn-primary:hover { background: var(--accent-hover); color: var(--on-accent); }
+  .btn-ghost { border-color: var(--border); color: var(--text); background: var(--card); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+  .hero-meta { margin-top: 26px; font-size: .86rem; color: var(--muted); }
+
+  section { padding: clamp(48px, 7vw, 76px) 0; }
+  section + section { border-top: 1px solid var(--border); }
+  .alt { background: var(--surface); }
+  h2 { font-size: clamp(1.45rem, 3vw, 2rem); line-height: 1.3; margin: 0 0 12px; letter-spacing: -.01em; }
+  .section-intro { color: var(--muted); margin: 0 0 34px; max-width: 46em; }
+
+  .grid { display: grid; gap: 18px; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);
+  }
+  .card h3 { margin: 0 0 8px; font-size: 1.06rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .93rem; }
+  .card .num {
+    display: inline-block; font-size: .76rem; font-weight: 700; color: var(--accent);
+    background: var(--accent-soft); border-radius: 6px; padding: 2px 8px; margin-bottom: 12px;
+  }
+  .features { grid-template-columns: repeat(2, 1fr); }
+  .feature { display: flex; gap: 14px; padding: 18px 20px; }
+  .feature .dot {
+    flex: 0 0 auto; width: 10px; height: 10px; margin-top: 9px;
+    border-radius: 3px; background: var(--accent);
+  }
+  .feature h3 { font-size: .99rem; margin: 0 0 4px; }
+  .feature p { font-size: .89rem; margin: 0; }
+
+  .shots { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  figure { margin: 0; }
+  .shot {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+  }
+  .shot img { display: block; width: 100%; height: auto; background: var(--surface); }
+  figcaption { padding: 12px 18px 16px; font-size: .88rem; color: var(--muted); border-top: 1px solid var(--border); }
+  figcaption strong { color: var(--text); font-weight: 650; }
+  .demo-note { font-size: .85rem; color: var(--muted); margin: 22px 0 0; }
+
+  .table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 620px; }
+  th, td { text-align: left; padding: 13px 18px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--surface); font-weight: 650; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    font-size: .86em; background: var(--surface); border: 1px solid var(--border);
+    padding: 2px 6px; border-radius: 5px; word-break: break-word;
+  }
+  .callout {
+    margin-top: 24px; padding: 18px 20px; border-radius: var(--radius);
+    background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
+    font-size: .92rem;
+  }
+  .callout strong { color: var(--text); }
+  .callout ul { margin: 10px 0 0; padding-left: 1.3em; }
+  .callout li { margin: 5px 0; }
+
+  .security { grid-template-columns: repeat(2, 1fr); }
+  .security .card { padding: 20px 22px; }
+  .security p { font-size: .9rem; }
+
+  .site-footer { border-top: 1px solid var(--border); background: var(--surface); padding: 34px 0; font-size: .88rem; color: var(--muted); }
+  .site-footer .wrap { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+  .site-footer .links { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; }
+
+  @media (max-width: 780px) {
+    .grid-3, .grid-2, .features, .shots, .security { grid-template-columns: 1fr; }
+    .header-links { width: 100%; margin-left: 0; padding-bottom: 10px; }
+    .site-footer .links { width: 100%; margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+    .btn:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到主要内容</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true">◆</span> KeyKeep <small>钥守</small></a>
+    <span class="pill">v0.1.0-test.6 · 测试版</span>
+    <nav class="header-links" aria-label="主导航">
+      <a href="#features">功能</a>
+      <a href="#screenshots">界面</a>
+      <a href="#download">下载</a>
+      <a href="https://github.com/france-stack/keykeep-releases">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero" id="top">
+    <div class="wrap">
+      <span class="pill">私有化部署 · Windows 桌面版 · 仅供评估</span>
+      <h1>让真实的 AI API Key<br><em>永远不必交给员工</em></h1>
+      <p class="lede">KeyKeep（钥守）是私有化部署的企业 AI API 统一管理与分发软件。公司统一保管真实上游凭据，员工只拿到<strong>可撤销、可限额、可审计</strong>的虚拟 Key —— 员工用现有 AI 工具照常工作，真实凭据、预算和审计始终握在公司手里。</p>
+      <p class="hero-note">内置便携数据库、运行时与演示上游，双击安装即可在单机跑通完整流程，无需准备真实凭据。</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/france-stack/keykeep-releases/releases/latest" aria-label="下载 KeyKeep 0.1.0-test.6 Windows x64 测试版">下载 0.1.0-test.6 · Windows x64</a>
+        <a class="btn btn-ghost" href="https://github.com/france-stack/keykeep-releases#readme">查看文档</a>
+      </div>
+      <p class="hero-meta">测试版 · 仅供评估，不建议接入生产环境凭据 · 安装包未做代码签名，请先核对 SHA-256</p>
+    </div>
+  </div>
+
+  <section aria-labelledby="value-title">
+    <div class="wrap">
+      <h2 id="value-title">三件事，握在自己手里</h2>
+      <p class="section-intro">把「发 Key」变成一件可控、可查、可收回的事，而不是一次性交出去的信任。</p>
+      <div class="grid grid-3">
+        <article class="card">
+          <span class="num">01</span>
+          <h3>真实凭据不出管理面</h3>
+          <p>上游 API Key 加密保存在管理端，只由网关读取。员工与员工侧工具从头到尾接触不到明文。</p>
+        </article>
+        <article class="card">
+          <span class="num">02</span>
+          <h3>撤销即时生效</h3>
+          <p>虚拟 Key 随手可撤，撤销后立即拒绝后续调用。疑似泄漏时不必全网更换真实凭据。</p>
+        </article>
+        <article class="card">
+          <span class="num">03</span>
+          <h3>用量与审计可核</h3>
+          <p>每次调用按模型计价入账，精确到员工与 Key；登录、签发、撤销、失败全程留痕。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <h2 id="features-title">核心功能</h2>
+      <p class="section-intro">从签出一枚虚拟 Key，到看懂这个月花在哪里，是一条完整闭环。</p>
+      <div class="grid features">
+        <article class="card feature"><span class="dot" aria-hidden="true"></span><div><h3>虚拟 Key 签发与撤销</h3><p>批量签发，明文仅显示一次；撤销即时生效，之后只展示密钥指纹。</p></div></article>
+        <article class="card feature"><span class="dot" aria-hidden="true"></span><div><h3>凭据加密集中托管</h3><p>真实上游凭据 AES-256-GCM 加密存储，仅管理面可写入。</p></div></article>
+        <article class="card feature"><span class="dot" aria-hidden="true"></span><div><h3>多供应商与模型映射</h3><p>逻辑别名映射到上游模型，可多条映射分流；支持 OpenAI / Anthropic 协议、SSE 流式与工具调用。</p></div></article>
+        <article class="card feature"><span class="dot" aria-hidden="true"></span><div><h3>两级限流与两级预算</h3><p>Key 级 / 全局级限流，员工级 / 全局级预算，超限自动拒绝，不再事后才发现失控。</p></div></article>
+        <article class="card feature"><span class="dot" aria-hidden="true"></span><div><h3>计量账本与价格版本</h3><p>按模型目录计价，价格支持版本管理，用量明细可筛选、可查、可核。</p></div></article>
+        <article class="card feature"><span class="dot" aria-hidden="true"></span><div><h3>规则式脱敏</h3><p>按策略替换敏感内容后再转发，减少提示词把敏感信息带往上游的风险。</p></div></article>
+        <article class="card feature"><span class="dot" aria-hidden="true"></span><div><h3>审计日志与员工自助</h3><p>管理操作与调用失败全程留痕；员工自行查看接入方式、自己的 Key 与用量。</p></div></article>
+        <article class="card feature"><span class="dot" aria-hidden="true"></span><div><h3>签名升级与一键回滚</h3><p>版本目录 + 指针切换，升级包带 Ed25519 签名清单与 SHA-256 校验，失败自动保留旧版。</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="screenshots" aria-labelledby="shots-title">
+    <div class="wrap">
+      <h2 id="shots-title">界面一览</h2>
+      <p class="section-intro">管理员与员工从同一个入口登录，进去后各自看到不同的工作台。</p>
+      <div class="grid shots">
+        <figure class="shot">
+          <img src="assets/login.png" alt="KeyKeep 登录页，管理员与员工共用的统一登录入口" loading="lazy" width="1280" height="800">
+          <figcaption><strong>登录页</strong> · 一个入口，登录后按角色分流</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/overview.png" alt="管理员工作台，展示团队、用量、预算与错误率总览" loading="lazy" width="1280" height="800">
+          <figcaption><strong>管理员工作台</strong> · 团队、用量、预算、错误率一屏总览</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/models.png" alt="模型与价格页面，展示逻辑别名到上游模型的映射与价格版本" loading="lazy" width="1280" height="800">
+          <figcaption><strong>模型与价格</strong> · 逻辑别名映射，价格按版本管理</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/my-keys.png" alt="员工侧我的接口页面，展示接入方式与密钥指纹" loading="lazy" width="1280" height="800">
+          <figcaption><strong>员工侧「我的接口」</strong> · 自助查看接入方式与用量</figcaption>
+        </figure>
+      </div>
+      <p class="demo-note">以上截图均为内置演示数据，不含任何真实凭据或客户信息。</p>
+    </div>
+  </section>
+
+  <section class="alt" id="download" aria-labelledby="download-title">
+    <div class="wrap">
+      <h2 id="download-title">下载测试版</h2>
+      <p class="section-intro">当前版本 <strong>0.1.0-test.6</strong>（标签 <code>v0.1.0-test.6</code>，2026-11-07），适用于 Windows 10 / 11 x64。下面的链接始终指向最新版本。</p>
+      <div class="cta-row" style="margin-bottom: 26px;">
+        <a class="btn btn-primary" href="https://github.com/france-stack/keykeep-releases/releases/latest" aria-label="前往 GitHub Releases 下载最新版">前往 Releases 下载</a>
+        <a class="btn btn-ghost" href="https://github.com/france-stack/keykeep-releases#校验下载完整性">查看校验方法</a>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">文件</th><th scope="col">大小（字节）</th><th scope="col">说明</th></tr></thead>
+          <tbody>
+            <tr><td><code>KeyKeep-Setup-0.1.0-test.6.exe</code></td><td>170,970,118</td><td>安装器版（推荐），双击安装，免管理员权限</td></tr>
+            <tr><td><code>KeyKeep-0.1.0-test.6-portable.zip</code></td><td>254,727,817</td><td>便携版，解压即用，不写注册表</td></tr>
+            <tr><td><code>keykeep-0.1.0-test.6.zip</code></td><td>254,727,817</td><td>OTA 更新包，与便携版字节相同，供程序内「检查更新」使用</td></tr>
+            <tr><td><code>SHA256SUMS.txt</code></td><td>366</td><td>4 个文件的 SHA-256 校验值</td></tr>
+            <tr><td><code>latest.json</code></td><td>583</td><td>带 Ed25519 签名的更新清单</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <strong>运行前请先校验，并留意以下事项：</strong>
+        <ul>
+          <li>把 5 个文件下载到同一目录，执行 <code>sha256sum -c SHA256SUMS.txt</code>，全部 <code>OK</code> 再使用。</li>
+          <li>安装包<strong>未做代码签名</strong>，Windows SmartScreen 可能提示「未知发布者」，这是预期现象。</li>
+          <li>本版本为<strong>评估用测试版</strong>，未经生产环境验证，请勿接入真实生产上游凭据，建议在隔离环境试用。</li>
+          <li>本仓库只包含介绍文档、介绍页与演示截图，<strong>不含产品源代码</strong>；安装包仅作为 Release 附件分发。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="security" aria-labelledby="security-title">
+    <div class="wrap">
+      <h2 id="security-title">安全与私有化</h2>
+      <p class="section-intro">设计上把「数据留在自己这里」当作默认，而不是一个需要额外配置的选项。</p>
+      <div class="grid security">
+        <article class="card"><h3>数据留在本机 / 内网</h3><p>凭据、账本与审计数据全部保存在部署侧，不回传软件方。</p></article>
+        <article class="card"><h3>凭据加密、不明文落日志</h3><p>真实上游凭据 AES-256-GCM 加密存储，不以明文出现在日志与诊断信息中。</p></article>
+        <article class="card"><h3>升级包先验签再安装</h3><p>Ed25519 签名清单 + SHA-256 校验，任一环节不通过都不会安装，失败自动保留旧版。</p></article>
+        <article class="card"><h3>控制台默认只听本机</h3><p>默认仅监听 <code>127.0.0.1</code>，不对外暴露管理入口。</p></article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 KeyKeep 作者（france-stack）· 保留所有权利 · 仅供评估使用</span>
+    <span>当前版本 0.1.0-test.6</span>
+    <nav class="links" aria-label="页脚链接">
+      <a href="https://france-stack.github.io/keykeep-releases/">介绍页</a>
+      <a href="https://github.com/france-stack/keykeep-releases">仓库</a>
+      <a href="https://github.com/france-stack/keykeep-releases/releases">Releases</a>
+      <a href="https://github.com/france-stack/keykeep-releases/issues">问题反馈</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
